@@ -1,7 +1,7 @@
 {
   "name": "youtube-loader",
   "productName": "Youtube Loader",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/main/main.js",
   "scripts": {
     "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
