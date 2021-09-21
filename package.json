@@ -1,6 +1,6 @@
 {
-  "name": "youtube-uploader",
-  "productName": "Uploader",
+  "name": "youtube-loader",
+  "productName": "Youtube Loader",
   "scripts": {
     "build": "concurrently \"yarn build:main\" \"yarn build:renderer\"",
     "build:main": "cross-env NODE_ENV=production webpack --config ./.erb/configs/webpack.config.main.prod.babel.js",
@@ -29,7 +29,7 @@
     ]
   },
   "build": {
-    "productName": "Uploader",
+    "productName": "Youtube Loader",
     "appId": "com.faithcomesbyhearing.Uploader",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
@@ -54,7 +54,7 @@
     "publish": {
       "provider": "github",
       "owner": "faithcomesbyhearing",
-      "repo": "youtube-uploader"
+      "repo": "youtube-loader"
     }
   },
   "jest": {
