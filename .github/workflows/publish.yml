@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest]
 
     steps:
       - name: Checkout git repo
@@ -34,13 +34,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      # - name: Install dependencies
-      #   run: |
-      #     yarn install --prefer-offline
+      - name: Install dependencies
+        run: |
+          yarn install --prefer-offline
 
       - name: Install dependencies
         run: |
           yarn install
+
+      - name: Install Wine
+        run: |
+          sudo dpkg --add-architecture i386
+          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+          sudo apt install --install-recommends winehq-stable
 
       - name: Publish releases
         env:
