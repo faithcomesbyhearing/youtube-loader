@@ -21,6 +21,9 @@ export default class AppUpdater {
     log.transports.file.level = 'info';
     autoUpdater.logger = log;
     autoUpdater.checkForUpdatesAndNotify();
+    autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+      autoUpdater.quitAndInstall();
+    });
   }
 }
 
@@ -93,6 +96,8 @@ const createWindow = async () => {
       sandbox: true,
     },
   });
+
+  mainWindow.setMenu(null);
 
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 

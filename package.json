@@ -40,7 +40,7 @@
     ],
     "win": {
       "target": [
-        "portable"
+        "nsis"
       ]
     },
     "directories": {
