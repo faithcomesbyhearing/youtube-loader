@@ -16,30 +16,16 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import { resolveHtmlPath } from './util';
 
-export default class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-    autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-      autoUpdater.quitAndInstall();
-    });
-  }
-}
-
 let mainWindow: BrowserWindow | null = null;
 
-ipcMain.handle('dropFiles', (event, files) => {
+ipcMain.handle('version', () => {
+  return app.getVersion();
+});
+ipcMain.handle('dropFiles', (_event, files) => {
   for (const file of files) {
     console.log(file);
   }
 });
-
-// ipcMain.on('ipc-example', async (event, arg) => {
-//   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-//   console.log(msgTemplate(arg));
-//   event.reply('ipc-example', msgTemplate('pong'));
-// });
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -124,27 +110,11 @@ const createWindow = async () => {
     shell.openExternal(url);
   });
 
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  new AppUpdater();
+  log.transports.file.level = 'info';
+  autoUpdater.logger = log;
+  autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.on('update-downloaded', () => { autoUpdater.quitAndInstall(); });
 };
 
-/**
- * Add event listeners...
- */
-
-app.on('window-all-closed', () => {
-  // Respect the OSX convention of having the application in memory even
-  // after all windows have been closed
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
+app.on('window-all-closed', () => { app.quit(); });
 app.whenReady().then(createWindow).catch(console.log);
-
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) createWindow();
-});

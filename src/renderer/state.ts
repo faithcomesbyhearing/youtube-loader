@@ -11,3 +11,8 @@ export const themeModeAtom = atom<'dark' | 'light'>({
   key: 'themeMode',
   default: 'dark',
 });
+
+export const versionAtom = atom({
+  key: 'version',
+  default: window.app.version,
+});

@@ -17,7 +17,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.global.css';
 import { DropzoneInputProps, FileWithPath, useDropzone } from 'react-dropzone';
-import { themeModeAtom, useRecoilState } from './state';
+import { themeModeAtom, useRecoilState, versionAtom } from './state';
+import { useRecoilValue } from 'recoil';
 
 const Upload = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -53,6 +54,7 @@ const Upload = () => {
 
 export default function App() {
   const [themeMode, setThemeMode] = useRecoilState(themeModeAtom);
+  const version = useRecoilValue(versionAtom);
   const theme = useMemo(
     () => createTheme({ palette: { mode: themeMode } }),
     [themeMode]
@@ -63,7 +65,7 @@ export default function App() {
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <AppBar position="fixed">
           <Toolbar>
-            <h3>Uploader</h3>
+            <h3>YouTube Loader {version}</h3>
             <Box sx={{ flex: 1 }} />
             {themeMode === 'light' ? (
               <IconButton color="inherit" onClick={() => setThemeMode('dark')}>
