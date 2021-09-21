@@ -1,6 +1,7 @@
 {
   "name": "youtube-uploader",
   "productName": "Uploader",
+  "version": "0.0.1",
   "main": "./dist/main/main.js",
   "scripts": {
     "electron-rebuild": "node -r ../../.erb/scripts/babel-register.js ../../.erb/scripts/electron-rebuild.js",
