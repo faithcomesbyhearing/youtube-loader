@@ -1,7 +1,12 @@
-import "@fontsource/roboto";
+import '@fontsource/roboto';
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
 import { RecoilRoot } from 'recoil';
+import App from './App';
 
-render(<RecoilRoot><App /></RecoilRoot>, document.getElementById('root'));
+render(
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>,
+  document.getElementById('root')
+);

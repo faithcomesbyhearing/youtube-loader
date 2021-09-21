@@ -1,11 +1,23 @@
-import { Brightness4, Brightness7 } from "@mui/icons-material";
-import { Alert, AlertTitle, AppBar, Box, Button, CircularProgress, createTheme, CssBaseline, IconButton, ThemeProvider, Toolbar } from "@mui/material";
+import { Brightness4, Brightness7 } from '@mui/icons-material';
+import {
+  Alert,
+  AlertTitle,
+  AppBar,
+  Box,
+  Button,
+  CircularProgress,
+  createTheme,
+  CssBaseline,
+  IconButton,
+  ThemeProvider,
+  Toolbar,
+} from '@mui/material';
 import React, { Suspense, useMemo } from 'react';
-import { ErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary } from 'react-error-boundary';
 import { MemoryRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.global.css';
+import { DropzoneInputProps, FileWithPath, useDropzone } from 'react-dropzone';
 import { themeModeAtom, useRecoilState } from './state';
-import { DropzoneInputProps, FileWithPath, useDropzone } from "react-dropzone";
 
 const Upload = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -15,23 +27,26 @@ const Upload = () => {
           console.error(error);
         }
       }
-      window.app.dropFiles(acceptedFiles.map(x => x.path));
+      window.app.dropFiles(acceptedFiles.map((x) => x.path));
     },
   });
 
   return (
-    <Box sx={{
-      flex: 1,
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      bgcolor: isDragActive && 'text.secondary',
-    }} {...getRootProps()}>
+    <Box
+      sx={{
+        flex: 1,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        bgcolor: isDragActive && 'text.secondary',
+      }}
+      {...getRootProps()}
+    >
       <input
-        {...getInputProps({ webkitdirectory: "true" } as DropzoneInputProps)}
+        {...getInputProps({ webkitdirectory: 'true' } as DropzoneInputProps)}
       />
-      <p>{isDragActive ? "Drop here" : "Drag here"}</p>
+      <p>{isDragActive ? 'Drop here' : 'Drag here'}</p>
     </Box>
   );
 };
@@ -45,17 +60,17 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <AppBar position="fixed">
           <Toolbar>
             <h3>Uploader</h3>
             <Box sx={{ flex: 1 }} />
-            {themeMode === "light" ? (
-              <IconButton color="inherit" onClick={() => setThemeMode("dark")}>
+            {themeMode === 'light' ? (
+              <IconButton color="inherit" onClick={() => setThemeMode('dark')}>
                 <Brightness4 />
               </IconButton>
             ) : (
-              <IconButton color="inherit" onClick={() => setThemeMode("light")}>
+              <IconButton color="inherit" onClick={() => setThemeMode('light')}>
                 <Brightness7 />
               </IconButton>
             )}
@@ -71,14 +86,14 @@ export default function App() {
         <Box
           sx={{
             mt: 8,
-            display: "flex",
+            display: 'flex',
             flex: 1,
           }}
         >
           <ErrorBoundary
             fallbackRender={({ error, resetErrorBoundary }) => {
               return (
-                <Box sx={{ alignSelf: "center" }}>
+                <Box sx={{ alignSelf: 'center' }}>
                   <Alert
                     severity="error"
                     action={
