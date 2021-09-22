@@ -100,10 +100,6 @@ const createWindow = async () => {
     }
   });
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {
     event.preventDefault();
